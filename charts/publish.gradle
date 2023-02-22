@@ -1,18 +1,32 @@
 apply plugin: 'maven-publish'
 
 def LIB_GROUP_ID = 'com.github.evd-evanss'
-def LIB_ARTIFACT_ID = 'sugarcharts'
-def LIB_VERSION = '1.0.0'
+def LIB_ARTIFACT_ID = 'charts'
+def LIB_VERSION = '1.0.4'
 
-afterEvaluate {
-    publishing {
-        publications {
-            chartRelease(MavenPublication) {
-                from components.release
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
 
-                groupId = LIB_GROUP_ID
-                artifactId = LIB_ARTIFACT_ID
-                version = LIB_VERSION
+publishing {
+    publications {
+        charts(MavenPublication) {
+            groupId LIB_GROUP_ID
+            artifactId LIB_ARTIFACT_ID
+            version LIB_VERSION
+            artifact("$buildDir/outputs/aar/charts-release.aar")
+            artifact(sourceJar)
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+
+                configurations.api.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
+                }
             }
         }
     }
