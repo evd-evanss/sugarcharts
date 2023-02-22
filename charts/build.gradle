@@ -1,7 +1,8 @@
-
-apply plugin: 'com.android.library'
-apply plugin: 'org.jetbrains.kotlin.android'
-apply from: file('publish.gradle')
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
 
 android {
     namespace 'com.sugarspoon.charts'
@@ -56,4 +57,18 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.evd-evanss'
+            artifactId = 'sugarcharts'
+            version = '1.0.5-RC'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
