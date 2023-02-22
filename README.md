@@ -9,23 +9,10 @@ A component for drawing linear graphs
 Gradle (project)
 ``` kotlin
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-        maven {
-            name = "GitHubPackages"
-
-            // Replace GITHUB_USERID with your personal or organisation user ID and
-            // REPOSITORY with the name of the repository on GitHub
-            url = uri("https://maven.pkg.github.com/evd-evanss/sugarcharts")
-
-            credentials {
-                username = "revandro77@yahoo.com.br"
-                password = "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"
-            }
-        }
-    }
+	repositories {
+		...
+ 		maven { url 'https://jitpack.io' }
+	}
 }
 ```
 Gradle (app)
@@ -69,27 +56,6 @@ Surface(
     )
 }
 ```
-    /**
-     * SugarCharts Linear
-     *
-     * @param entries  [GraphEntry]
-     *
-     * @param enableGrids . default[true]
-     *
-     * @param enableAnimation Serve para .
-     * default[false]
-     *
-     * @param smoothLines Serve para suavizar a linha de dados. default[true]
-     *
-     * @param drawValuesOnMarkers 
-     *
-     * @param aspectRatio .
-     * default [3/2f]
-     *
-     * @param graphicColors . Veja [GraphicColors]
-     *
-     * @param paddingValues .
-     */
 
 | Param               |                                   Function                                    |
 |---------------------|:-----------------------------------------------------------------------------:|
